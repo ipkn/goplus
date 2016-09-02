@@ -8,11 +8,11 @@ goroutine extension for c++
 	using namespace goplus;
 
     auto ch = make_chan<int>();
-    go+ [ch]() mutable{
+    go+ [&ch]() {
         ch << 101;
     };
 
-    go+ [ch]() mutable{
+    go+ [&ch]() {
         int x;
 
         ch >> x;
