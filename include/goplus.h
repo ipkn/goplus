@@ -1,5 +1,11 @@
 #pragma once
 
+// -1: number of processor
+#define GOPLUS_CONCURRENCY -1
+
+#include "channel.h"
+#include "scheduler.h"
+
 namespace goplus
 {
     struct GoDummy
@@ -11,7 +17,6 @@ namespace goplus
     template <typename Func>
     inline void operator + (GoDummy, Func f)
     {
-        static_assert(false, "Compile with goplus first.");
-        f();
+        scheduler::spawn(f);
     }
 }
