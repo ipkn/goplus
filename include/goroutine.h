@@ -3,7 +3,6 @@
 
 namespace goplus
 {
-    class scheduler;
     struct goroutine
     {
     public:
@@ -19,6 +18,7 @@ namespace goplus
         {
             ctx_ = std::move(r.ctx_);
             scheduler_ = r.scheduler_;
+			r.scheduler_ = -1;
         }
 
         auto detach()
@@ -30,21 +30,22 @@ namespace goplus
         {
             ctx_ = std::move(ctx_());
         }
-        void set(boost::context::execution_context<void>& ctx)
+        void set(boost::context::execution_context<void>&& ctx)
         {
             ctx_ = std::move(ctx);
         }
-        void set_scheduler(int idx)
+        void set_scheduler(int idx) noexcept
         {
             scheduler_ = idx;
         }
-        int get_scheduler()
+        int get_scheduler() noexcept
         {
             return scheduler_;
         }
 
         boost::context::execution_context<void> ctx_;
         int scheduler_{-1};
+		std::atomic<bool> waked_from_select_{false};
     };
 
 }

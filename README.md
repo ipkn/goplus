@@ -21,8 +21,7 @@ goroutine extension for c++
 
 # Limitation
 
- - Basic implementation
- - main thread can't send to/recv from a channel (yet).
+ - Basic implementation (no select yet)
 
 # Dependency
 

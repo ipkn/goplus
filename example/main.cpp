@@ -5,7 +5,7 @@ using namespace goplus;
 
 int main() 
 {
-    auto ch = make_chan<int>();
+    auto ch = make_chan<int>(1);
     go+ [ch]() mutable{
         ch << 101;
         ch << 203;
@@ -14,22 +14,20 @@ int main()
         ch << 2;
     };
 
-    go+ [ch]() mutable{
-        int x;
-        int sum = 0;
+    int x;
+    int sum = 0;
 
-        ch >> x;
-        sum += x;
-        std::cout << x << ' ' << sum << std::endl;
+    ch >> x;
+    sum += x;
+    std::cout << x << ' ' << sum << std::endl;
 
-        ch >> x;
-        sum += x;
-        std::cout << x << ' ' << sum << std::endl;
+    ch >> x;
+    sum += x;
+    std::cout << x << ' ' << sum << std::endl;
 
-        ch >> x;
-        sum += x;
-        std::cout << x << ' ' << sum << std::endl;
-    };
+    ch >> x;
+    sum += x;
+    std::cout << x << ' ' << sum << std::endl;
 
     return 0;
 }
